@@ -1,15 +1,32 @@
 # Go CLI Tools
 
-A collection of mini command-line tools built in Go.  
-Each tool is in its own subfolder with its own purpose.
+![Go](https://img.shields.io/badge/go-%2300ADD8.svg?style=for-the-badge&logo=go&logoColor=white)
+
+A collection of command-line tools and web utilities built in Go.
 
 ## Tools
 
-### 1. `cli-todo`
-A simple to-do list manager via command line.
+### `cli-todo`  
+A persistent to-do list manager with JSON storage  
+Supports add/list/complete/delete tasks  
+`todo [add|list|done|delete] [task]`
 
-### 2. `go-calc`
-A calculator CLI tool that supports operations like `add` and `sub`.
+### `go-calc`
+Simple calculator with basic operations  
+Handles add/sub via command arguments  
+`calc [add|sub] [num1] [num2]`
 
-More tools to come 🚀
+### `web-app`  -- not complete
+Note-taking web app with Gorilla Mux  
+CRUD operations with HTML templates  
+Run and visit `localhost:8000`
 
+### `rss` 
+RSS feed reader and web server  
+Parses and displays formatted articles with elegant UI 
+Run and visit `localhost:8000`
+
+## Usage
+```bash
+cd [tool-directory]
+go run main.go
