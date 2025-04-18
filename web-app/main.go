@@ -1,24 +1,23 @@
 package main
 
 import (
-	"encoding/json"
-	"fmt"
 	"net/http"
+	"web-app/handlers"
+
+	"github.com/gorilla/mux"
 )
 
-func handleHome(w http.ResponseWriter , r *http.Request){
-	fmt.Fprintln(w,"Welcome to our Go Web Api!")
-}
+func main() {
+	r := mux.NewRouter()
 
-func helloHandler(w http.ResponseWriter , r *http.Request){
-	w.Header().Set("Content-Type","application/json")
-	response := map[string] string{"message":"Hello from the Go!"}
-	json.NewEncoder(w).Encode(response)
-}
+	// Serve static files from /static/ folder
+	r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", http.FileServer(http.Dir("D:/code/go/web-app/static"))))
 
-func main(){
-	http.HandleFunc("/",handleHome)
-	http.HandleFunc("/hello",helloHandler)
+	// Routes
+	r.HandleFunc("/", handlers.HandleHome).Methods("GET")
+	r.HandleFunc("/note/new", handlers.NewNoteHandler).Methods("GET", "POST")
+	r.HandleFunc("/note/{id}", handlers.EditNoteHandler).Methods("GET", "POST")
+	r.HandleFunc("/note/{id}/delete", handlers.DeleteNoteHandler).Methods("POST")
 
-	http.ListenAndServe(":8000",nil)
+	http.ListenAndServe(":8000", r)
 }
